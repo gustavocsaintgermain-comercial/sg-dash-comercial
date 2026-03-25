@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Saint Germain SG — Comercial</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#080808;--white:#f0ede8;
+  --s100:#111110;--s200:#1c1c1a;--s300:#2a2a28;--s400:#3e3e3a;
+  --s500:#5a5a54;--s600:#7a7a72;--s700:#a0a096;--s800:#c8c8be;
+  --fd:'Cormorant Garamond',serif;--fb:'DM Sans',sans-serif;
+  --r:4px;--rl:8px;
+}
+body{font-family:var(--fb);background:var(--bg);color:var(--white);min-height:100vh}
+.app{display:grid;grid-template-columns:220px 1fr;min-height:100vh}
+.sidebar{background:var(--s100);border-right:1px solid var(--s200);display:flex;flex-direction:column;padding:2rem 0}
+.sb-logo{padding:0 1.5rem 1.75rem;border-bottom:1px solid var(--s200)}
+.sb-eyebrow{font-size:.55rem;letter-spacing:.22em;text-transform:uppercase;color:var(--s500);margin-bottom:.55rem}
+.sb-title{font-family:var(--fd);font-size:1.5rem;font-weight:300;letter-spacing:.16em;text-transform:uppercase;line-height:1.2;color:var(--white)}
+.sb-sub{font-size:.58rem;letter-spacing:.16em;text-transform:uppercase;color:var(--s500);margin-top:.45rem}
+.sb-badge{display:inline-block;margin-top:.7rem;font-size:.52rem;letter-spacing:.1em;text-transform:uppercase;color:var(--s500);border:1px solid var(--s300);border-radius:99px;padding:.2rem .6rem}
+.nav{flex:1;padding:1.5rem 0}
+.nav-sec{font-size:.52rem;letter-spacing:.2em;text-transform:uppercase;color:var(--s400);padding:.8rem 1.5rem .4rem}
+.nav-item{display:flex;align-items:center;gap:.6rem;padding:.6rem 1.5rem;font-size:.73rem;letter-spacing:.02em;color:var(--s600);cursor:pointer;transition:all .15s;border-left:1.5px solid transparent}
+.nav-item:hover{color:var(--s800);background:var(--s200)}
+.nav-item.active{color:var(--white);border-left-color:var(--white);background:var(--s300)}
+.nav-item svg{width:13px;height:13px;flex-shrink:0;opacity:.5}
+.nav-item.active svg{opacity:1}
+.sb-foot{padding:1.25rem 1.5rem;border-top:1px solid var(--s200);font-size:.62rem;color:var(--s500);line-height:1.7}
+.main{overflow-y:auto}
+.topbar{display:flex;align-items:center;justify-content:space-between;padding:1.25rem 2rem;border-bottom:1px solid var(--s200);position:sticky;top:0;background:rgba(8,8,8,.96);backdrop-filter:blur(12px);z-index:10}
+.topbar-left{display:flex;align-items:center;gap:.75rem}
+.topbar-title{font-family:var(--fd);font-size:1.05rem;font-weight:400;letter-spacing:.1em;color:var(--white)}
+.topbar-date{font-size:.65rem;color:var(--s500);letter-spacing:.04em;font-style:italic}
+.readonly-badge{display:inline-flex;align-items:center;gap:.35rem;font-size:.58rem;letter-spacing:.08em;text-transform:uppercase;color:var(--s500);border:1px solid var(--s300);border-radius:99px;padding:.25rem .7rem}
+.page{display:none;padding:2rem}
+.page.active{display:block}
+.sec{font-size:.55rem;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--s500);margin-bottom:.9rem;margin-top:2rem;padding-bottom:.5rem;border-bottom:1px solid var(--s200)}
+.sec:first-child{margin-top:0}
+.kpi-strip{display:grid;grid-template-columns:1fr 1px 1fr 1px 1fr 1px 1fr;border:1px solid var(--s300);border-radius:var(--rl);overflow:hidden;margin-bottom:1.5rem}
+.kpi-div{background:var(--s300)}
+.kpi{padding:1.4rem 1.6rem;background:var(--s100)}
+.kpi-label{font-size:.55rem;letter-spacing:.16em;text-transform:uppercase;color:var(--s500);margin-bottom:.75rem}
+.kpi-val{font-family:var(--fd);font-size:1.45rem;font-weight:300;color:var(--white);line-height:1;margin-bottom:.5rem}
+.kpi-sub{font-size:.63rem;color:var(--s500)}
+.kpi-bar{height:1.5px;background:var(--s300);border-radius:99px;margin-top:.9rem;overflow:hidden}
+.kpi-bar-fill{height:100%;background:var(--white);border-radius:99px;transition:width .7s ease}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem}
+.card{background:var(--s100);border:1px solid var(--s200);border-radius:var(--rl);padding:1.3rem}
+.card-label{font-size:.55rem;letter-spacing:.16em;text-transform:uppercase;color:var(--s500);margin-bottom:1.1rem}
+.pline{display:flex;align-items:center;gap:.85rem;margin-bottom:.85rem}
+.pline:last-child{margin-bottom:0}
+.pline-name{font-size:.72rem;color:var(--s600);width:135px;flex-shrink:0}
+.pline-track{flex:1;height:1px;background:var(--s300);border-radius:99px;overflow:hidden}
+.pline-fill{height:100%;background:var(--white);border-radius:99px}
+.pline-pct{font-size:.68rem;font-weight:500;color:var(--white);min-width:36px;text-align:right}
+.pline-val{font-size:.63rem;color:var(--s500);min-width:100px;text-align:right}
+.cline{display:flex;align-items:center;gap:.85rem;margin-bottom:.8rem}
+.cline:last-child{margin-bottom:0}
+.cline-dot{width:5px;height:5px;border-radius:50%;flex-shrink:0}
+.cline-name{font-size:.72rem;color:var(--s600);flex:1}
+.cline-pct{font-size:.63rem;color:var(--s500);min-width:34px;text-align:right}
+.cline-val{font-size:.72rem;font-weight:500;color:var(--white);min-width:110px;text-align:right}
+.vgrid{display:grid;grid-template-columns:1fr 1fr;gap:.5rem}
+.vcard{display:flex;justify-content:space-between;align-items:center;padding:.55rem .8rem;background:var(--s100);border-radius:var(--r);border:1px solid var(--s200)}
+.vcard-name{font-size:.7rem;color:var(--s600)}
+.vcard-val{font-size:.7rem;font-weight:500;color:var(--white)}
+.canal-blocks{display:flex;flex-direction:column;gap:.75rem}
+.canal-block{background:var(--s100);border:1px solid var(--s200);border-radius:var(--rl);overflow:hidden}
+.canal-hd{display:flex;align-items:center;justify-content:space-between;padding:.8rem 1.2rem;background:var(--s200);border-bottom:1px solid var(--s300)}
+.canal-hd-name{font-size:.6rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--s800)}
+.canal-hd-total{font-family:var(--fd);font-size:.95rem;color:var(--white)}
+.canal-meta-row{display:flex;align-items:center;gap:.75rem;padding:.5rem 1.2rem;border-bottom:1px solid var(--s200)}
+.cmbar{flex:1;height:1px;background:var(--s300);border-radius:99px;overflow:hidden}
+.cmbar-fill{height:100%;background:var(--white);border-radius:99px}
+.cm-pct{font-size:.65rem;font-weight:500;color:var(--white);min-width:34px;text-align:right}
+.cm-lbl{font-size:.62rem;color:var(--s500);min-width:115px;text-align:right}
+.vrow{display:flex;align-items:center;justify-content:space-between;padding:.65rem 1.2rem;border-bottom:1px solid var(--s200)}
+.vrow:last-child{border-bottom:none}
+.vrow-name{font-size:.77rem;color:var(--s700)}
+.vrow-right{display:flex;align-items:center;gap:.85rem}
+.vrow-mini{width:55px;height:1.5px;background:var(--s300);border-radius:99px;overflow:hidden}
+.vrow-mini-fill{height:100%;background:var(--s600);border-radius:99px}
+.vrow-share{font-size:.62rem;color:var(--s500);min-width:30px;text-align:right}
+.vrow-val{font-size:.77rem;font-weight:500;color:var(--white);min-width:105px;text-align:right}
+.charts-grid{display:grid;grid-template-columns:2fr 1fr;gap:1rem}
+.chart-card{background:var(--s100);border:1px solid var(--s200);border-radius:var(--rl);padding:1.2rem}
+.chart-label{font-size:.55rem;letter-spacing:.14em;text-transform:uppercase;color:var(--s500);margin-bottom:.9rem}
+.leg-row{display:flex;gap:1rem;margin-bottom:.7rem;flex-wrap:wrap}
+.leg{display:flex;align-items:center;gap:.35rem;font-size:.63rem;color:var(--s500)}
+.leg-sq{width:6px;height:6px;border-radius:1px;flex-shrink:0}
+.hist-list{display:flex;flex-direction:column;gap:.6rem}
+.hist-item{background:var(--s200);border-radius:var(--r);padding:.85rem 1rem;border:1px solid var(--s300)}
+.hist-item-header{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.5rem}
+.hist-mes{font-size:.72rem;font-weight:500;color:var(--white)}
+.hist-canais{display:grid;grid-template-columns:1fr 1fr 1fr;gap:.4rem}
+.hist-canal{font-size:.62rem;color:var(--s600)}
+.hist-canal span{color:var(--s700);display:block}
+::-webkit-scrollbar{width:3px;height:3px}
+::-webkit-scrollbar-thumb{background:var(--s300);border-radius:99px}
+</style>
+</head>
+<body>
+<div class="app">
+
+  <aside class="sidebar">
+    <div class="sb-logo">
+      <div class="sb-eyebrow">Painel Comercial</div>
+      <div class="sb-title">Saint<br>Germain</div>
+      <div class="sb-sub" id="sbSub">SG · —</div>
+      <div class="sb-badge">somente leitura</div>
+    </div>
+    <nav class="nav">
+      <div class="nav-sec">Visão geral</div>
+      <div class="nav-item active" onclick="goPage('dash',this)">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="1" width="6" height="6" rx="1"/><rect x="9" y="1" width="6" height="6" rx="1"/><rect x="1" y="9" width="6" height="6" rx="1"/><rect x="9" y="9" width="6" height="6" rx="1"/></svg>
+        Dashboard
+      </div>
+      <div class="nav-item" onclick="goPage('canais',this)">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 4h12M2 8h8M2 12h5"/></svg>
+        Por canal
+      </div>
+      <div class="nav-item" onclick="goPage('historico',this)">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="8" r="6"/><path d="M8 5v3.5l2.5 1.5"/></svg>
+        Histórico
+      </div>
+    </nav>
+    <div class="sb-foot">Atualizado em<br><span id="sbAtual">—</span></div>
+  </aside>
+
+  <main class="main">
+    <div class="topbar">
+      <div class="topbar-left">
+        <span class="topbar-title" id="topbarTitle">Dashboard</span>
+        <span class="readonly-badge">
+          <svg width="8" height="8" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="7" width="10" height="8" rx="1"/><path d="M5 7V5a3 3 0 016 0v2"/></svg>
+          visualização
+        </span>
+      </div>
+      <span class="topbar-date" id="topbarDate">—</span>
+    </div>
+
+    <!-- DASHBOARD -->
+    <div class="page active" id="pageDash">
+      <div class="kpi-strip">
+        <div class="kpi">
+          <div class="kpi-label">Faturamento acumulado</div>
+          <div class="kpi-val" id="mFat">—</div>
+          <div class="kpi-sub" id="mFatSub">—</div>
+          <div class="kpi-bar"><div class="kpi-bar-fill" id="mFatBar" style="width:0%"></div></div>
+        </div>
+        <div class="kpi-div"></div>
+        <div class="kpi">
+          <div class="kpi-label">Meta do mês</div>
+          <div class="kpi-val" id="mMeta">—</div>
+          <div class="kpi-sub" id="mMetaSub">—</div>
+        </div>
+        <div class="kpi-div"></div>
+        <div class="kpi">
+          <div class="kpi-label">Progresso</div>
+          <div class="kpi-val" id="mProg">—</div>
+          <div class="kpi-sub">da meta máxima</div>
+          <div class="kpi-bar"><div class="kpi-bar-fill" id="mProgBar" style="width:0%"></div></div>
+        </div>
+        <div class="kpi-div"></div>
+        <div class="kpi">
+          <div class="kpi-label">Necessário / dia</div>
+          <div class="kpi-val" id="mPerDay">—</div>
+          <div class="kpi-sub" id="mFaltaSub">—</div>
+        </div>
+      </div>
+
+      <div class="two-col">
+        <div class="card">
+          <div class="card-label">Metas por canal</div>
+          <div id="progCanais"></div>
+        </div>
+        <div class="card">
+          <div class="card-label">Receita por canal</div>
+          <div id="canalMix"></div>
+        </div>
+      </div>
+
+      <div class="charts-grid">
+        <div class="chart-card">
+          <div class="chart-label">Faturamento bruto por dia</div>
+          <div style="position:relative;height:185px"><canvas id="dailyChart"></canvas></div>
+        </div>
+        <div class="chart-card">
+          <div class="chart-label">Mix de canais</div>
+          <div class="leg-row">
+            <span class="leg"><span class="leg-sq" style="background:#f0ede8"></span>Atacado+Feira</span>
+            <span class="leg"><span class="leg-sq" style="background:#5a5a54"></span>Whats</span>
+            <span class="leg"><span class="leg-sq" style="background:#3e3e3a;border:1px solid #5a5a54"></span>Quiosques</span>
+          </div>
+          <div style="position:relative;height:155px"><canvas id="canalChart"></canvas></div>
+        </div>
+      </div>
+
+      <div class="sec">Desempenho individual</div>
+      <div class="vgrid" id="vendGrid"></div>
+    </div>
+
+    <!-- POR CANAL -->
+    <div class="page" id="pageCanais">
+      <div class="canal-blocks" id="canalBlocks"></div>
+    </div>
+
+    <!-- HISTÓRICO -->
+    <div class="page" id="pageHistorico">
+      <div class="sec" style="margin-top:0">Resultados mensais</div>
+      <div id="histList"><p style="font-size:.72rem;color:var(--s500)">Nenhum mês encerrado ainda. O histórico aparece aqui após virar o mês no painel principal.</p></div>
+    </div>
+
+  </main>
+</div>
+
+<script>
+const VENDS=['rafa','lorena','joao','agent','emily','giovana','fabio','sarah','ana','feira','bc','mooca','neu','garten'];
+
+// ── DADOS — atualizado em 25/03/2026 ─────────────────────────
+const S={
+  mes:'Março 2026',
+  dias:31,
+  metaMax:1050000,
+  metaAtacado:400000,
+  metaWhats:375000,
+  metaQuiosque:240000,
+  atualizadoEm:'25/03/2026',
+  historico:[],
+  days:[
+    {d:'01/03',rafa:0,lorena:0,joao:0,agent:4769.28,emily:0,giovana:0,fabio:0,sarah:0,ana:0,feira:0,bc:3529.15,mooca:766.8,neu:784.7,garten:1695.02},
+    {d:'02/03',rafa:1015.14,lorena:1967.63,joao:0,agent:4853.29,emily:3448.12,giovana:6557.65,fabio:0,sarah:1799.76,ana:0,feira:0,bc:1167.9,mooca:664.7,neu:487.9,garten:129.9},
+    {d:'03/03',rafa:1186.55,lorena:3883.28,joao:0,agent:7353.59,emily:5293.68,giovana:6303.81,fabio:1028.6,sarah:2250.17,ana:0,feira:0,bc:2292.45,mooca:1524.8,neu:299.9,garten:1263.7},
+    {d:'04/03',rafa:824.53,lorena:1218.53,joao:0,agent:7590.55,emily:1631.48,giovana:0,fabio:0,sarah:5111.55,ana:0,feira:0,bc:2205.31,mooca:0,neu:1450.7,garten:696.9},
+    {d:'05/03',rafa:2863.94,lorena:2447.87,joao:0,agent:5037.83,emily:7580.34,giovana:0,fabio:3187.8,sarah:0,ana:0,feira:0,bc:2205.31,mooca:0,neu:1450.7,garten:696.9},
+    {d:'06/03',rafa:2960.49,lorena:2274.27,joao:0,agent:3814.0,emily:12639.59,giovana:5488.02,fabio:2847.9,sarah:0,ana:0,feira:0,bc:2916.11,mooca:1865.61,neu:1516.4,garten:2006.4},
+    {d:'07/03',rafa:0,lorena:0,joao:0,agent:3552.58,emily:2178.63,giovana:0,fabio:4998.65,sarah:0,ana:0,feira:0,bc:6177.84,mooca:2934.01,neu:5104.94,garten:4153.82},
+    {d:'08/03',rafa:431.11,lorena:0,joao:0,agent:3011.9,emily:0,giovana:0,fabio:4120.84,sarah:0,ana:0,feira:0,bc:3882.83,mooca:2601.4,neu:959.7,garten:1073.8},
+    {d:'09/03',rafa:2772.81,lorena:1467.04,joao:0,agent:4126.66,emily:6029.39,giovana:6184.31,fabio:4892.92,sarah:0,ana:1559.0,feira:0,bc:1522.7,mooca:2226.0,neu:1565.62,garten:0},
+    {d:'10/03',rafa:3823.4,lorena:3310.15,joao:0,agent:10831.58,emily:9251.35,giovana:3668.3,fabio:0,sarah:0,ana:1837.5,feira:0,bc:1682.14,mooca:1893.23,neu:189.9,garten:1364.5},
+    {d:'11/03',rafa:4706.02,lorena:2213.62,joao:0,agent:9459.95,emily:13081.45,giovana:0,fabio:0,sarah:0,ana:0,feira:0,bc:1616.0,mooca:1767.3,neu:1963.65,garten:999.5},
+    {d:'12/03',rafa:2733.01,lorena:2767.82,joao:0,agent:11837.09,emily:10211.81,giovana:3012.06,fabio:2544.46,sarah:3139.55,ana:0,feira:0,bc:2572.6,mooca:3270.93,neu:2048.9,garten:899.8},
+    {d:'13/03',rafa:2933.37,lorena:1712.35,joao:0,agent:7098.56,emily:2855.84,giovana:7320.45,fabio:0,sarah:3269.84,ana:0,feira:0,bc:5308.2,mooca:3235.82,neu:1024.2,garten:869.5},
+    {d:'14/03',rafa:80.81,lorena:179.91,joao:0,agent:9513.27,emily:1595.14,giovana:0,fabio:3729.91,sarah:0,ana:0,feira:0,bc:4593.13,mooca:2665.42,neu:1908.7,garten:2653.21},
+    {d:'15/03',rafa:316.54,lorena:131.81,joao:0,agent:7852.09,emily:0,giovana:0,fabio:0,sarah:0,ana:0,feira:0,bc:1633.91,mooca:1529.0,neu:929.5,garten:1435.4},
+    {d:'16/03',rafa:2564.76,lorena:3346.89,joao:1873.31,agent:6709.94,emily:10272.87,giovana:3217.25,fabio:0,sarah:0,ana:0,feira:57220.24,bc:1602.6,mooca:4632.4,neu:464.4,garten:1234.4},
+    {d:'17/03',rafa:2913.61,lorena:2015.69,joao:2744.88,agent:8058.78,emily:12390.33,giovana:5030.11,fabio:0,sarah:0,ana:0,feira:43320.33,bc:1602.53,mooca:1612.72,neu:473.72,garten:497.9},
+    {d:'18/03',rafa:1230.96,lorena:202.23,joao:1849.23,agent:4564.16,emily:8863.7,giovana:0,fabio:6141.49,sarah:5718.64,ana:1618.73,feira:10653.9,bc:1425.0,mooca:1538.6,neu:1447.31,garten:943.8},
+    {d:'19/03',rafa:2920.08,lorena:1972.98,joao:3414.39,agent:7745.36,emily:5606.98,giovana:1711.05,fabio:6967.61,sarah:1785.74,ana:0,feira:0,bc:1906.4,mooca:1019.6,neu:384.8,garten:1594.22},
+    {d:'20/03',rafa:2453.1,lorena:0,joao:2382.0,agent:7452.41,emily:4185.08,giovana:8236.58,fabio:6126.69,sarah:5396.3,ana:0,feira:0,bc:3546.61,mooca:3373.93,neu:444.8,garten:1047.4},
+    {d:'21/03',rafa:0,lorena:0,joao:0,agent:6205.04,emily:6389.44,giovana:0,fabio:2469.19,sarah:3577.82,ana:0,feira:0,bc:2806.2,mooca:3813.93,neu:3317.9,garten:2470.7},
+    {d:'22/03',rafa:0,lorena:0,joao:0,agent:6657.82,emily:4007.66,giovana:0,fabio:0,sarah:0,ana:0,feira:0,bc:1983.9,mooca:4359.4,neu:849.4,garten:1239.4},
+    {d:'23/03',rafa:2295.92,lorena:0,joao:2589.8,agent:8306.73,emily:6063.03,giovana:0,fabio:0,sarah:1619.0,ana:0,feira:0,bc:2058.3,mooca:1359.7,neu:959.6,garten:809.8},
+    {d:'24/03',rafa:2405.14,lorena:0,joao:2570.41,agent:4302.64,emily:5452.96,giovana:1964.83,fabio:5005.26,sarah:3906.39,ana:0,feira:0,bc:1784.3,mooca:0,neu:149.9,garten:437.8},
+  ],
+  v:{
+    rafa:43431.29,lorena:31112.07,joao:17424.02,
+    agent:160705.1,emily:139028.87,giovana:58694.42,
+    fabio:54061.32,sarah:37574.76,ana:5015.23,
+    feira:111194.47,fabonus:0,
+    bc:62021.42,mooca:48655.3,neu:30177.24,garten:30213.77
+  }
+};
+// ─────────────────────────────────────────────────────────────
+
+let charts={daily:null,canal:null};
+function fmt(v){return 'R$ '+Math.round(v).toLocaleString('pt-BR');}
+function pctN(a,b){return b>0?Math.min(a/b*100,100):0;}
+function pctS(a,b){return pctN(a,b).toFixed(1)+'%';}
+function n(v){return parseFloat(v)||0;}
+
+function calcTotals(){
+  const v=S.v;
+  const vw=n(v.rafa)+n(v.lorena)+n(v.joao);
+  const at=n(v.emily)+n(v.giovana)+n(v.fabio)+n(v.sarah)+n(v.ana);
+  const fe=n(v.feira),qu=n(v.bc)+n(v.mooca)+n(v.neu)+n(v.garten),ag=n(v.agent);
+  const whats=vw+ag,atfe=at+fe,total=atfe+qu+vw+ag;
+  return{vw,at,fe,qu,ag,whats,atfe,total};
+}
+
+function goPage(id,el){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(x=>x.classList.remove('active'));
+  document.getElementById('page'+id.charAt(0).toUpperCase()+id.slice(1)).classList.add('active');
+  if(el)el.classList.add('active');
+  const titles={dash:'Dashboard',canais:'Por canal',historico:'Histórico'};
+  document.getElementById('topbarTitle').textContent=titles[id]||id;
+  if(id==='dash')renderDash();
+  if(id==='canais')renderCanais();
+  if(id==='historico')renderHistorico();
+}
+
+function renderDash(){
+  const t=calcTotals();
+  const diasLanc=S.days.filter(d=>VENDS.some(k=>n(d[k])>0)).length;
+  const diasRest=Math.max(S.dias-diasLanc,0);
+  const falta=S.metaMax-t.total;
+  const perDay=diasRest>0?falta/diasRest:0;
+  const prog=pctN(t.total,S.metaMax);
+
+  document.getElementById('sbSub').textContent='SG · '+S.mes;
+  document.getElementById('sbAtual').textContent=S.atualizadoEm;
+  document.getElementById('topbarDate').textContent=new Date().toLocaleDateString('pt-BR',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+  document.getElementById('mFat').textContent=fmt(t.total);
+  document.getElementById('mFatSub').textContent='até dia '+diasLanc+' — '+S.mes;
+  document.getElementById('mFatBar').style.width=prog+'%';
+  document.getElementById('mMeta').textContent=fmt(S.metaMax);
+  document.getElementById('mMetaSub').textContent=diasRest+' dias restantes';
+  document.getElementById('mProg').textContent=prog.toFixed(1)+'%';
+  document.getElementById('mProgBar').style.width=prog+'%';
+  document.getElementById('mPerDay').textContent=falta>0?fmt(perDay):'Meta atingida!';
+  document.getElementById('mFaltaSub').textContent=falta>0?'para fechar a meta':'';
+
+  document.getElementById('progCanais').innerHTML=[
+    {n:'Atacado + Feira',v:t.atfe,m:S.metaAtacado},
+    {n:'Quiosques',v:t.qu,m:S.metaQuiosque},
+    {n:'Whats + Agent Shop',v:t.whats,m:S.metaWhats},
+  ].map(r=>`<div class="pline">
+    <span class="pline-name">${r.n}</span>
+    <div class="pline-track"><div class="pline-fill" style="width:${pctN(r.v,r.m)}%"></div></div>
+    <span class="pline-pct">${pctS(r.v,r.m)}</span>
+    <span class="pline-val">${fmt(r.v)}</span>
+  </div>`).join('');
+
+  document.getElementById('canalMix').innerHTML=[
+    {n:'Atacado + Feira',v:t.atfe,dot:'#f0ede8'},
+    {n:'Whats + Agent Shop',v:t.whats,dot:'#5a5a54'},
+    {n:'Quiosques',v:t.qu,dot:'#3e3e3a'},
+  ].map(r=>`<div class="cline">
+    <div class="cline-dot" style="background:${r.dot};${r.dot==='#3e3e3a'?'outline:1px solid #5a5a54':''}"></div>
+    <span class="cline-name">${r.n}</span>
+    <span class="cline-pct">${((r.v/t.total)*100).toFixed(1)}%</span>
+    <span class="cline-val">${fmt(r.v)}</span>
+  </div>`).join('');
+
+  const v=S.v;
+  document.getElementById('vendGrid').innerHTML=[
+    {n:'Agent Shop (IA)',val:n(v.agent)},{n:'Emily',val:n(v.emily)},
+    {n:'Giovana',val:n(v.giovana)},{n:'Fabio',val:n(v.fabio)+n(v.fabonus||0),sub:'Atacado + Vendas Feira'},
+    {n:'Sarah',val:n(v.sarah)},{n:'Rafa',val:n(v.rafa)},
+    {n:'Lorena',val:n(v.lorena)},{n:'João',val:n(v.joao)},
+    {n:'BC',val:n(v.bc)},{n:'Mooca',val:n(v.mooca)},
+    {n:'Neumarket',val:n(v.neu)},{n:'Garten',val:n(v.garten)},
+  ].sort((a,b)=>b.val-a.val).map(vd=>`
+    <div class="vcard">
+      <div>
+        <span class="vcard-name">${vd.n}</span>
+        ${vd.sub?`<span style="display:block;font-size:.58rem;color:var(--s500);margin-top:.15rem">${vd.sub}</span>`:''}
+      </div>
+      <span class="vcard-val">${fmt(vd.val)}</span>
+    </div>`).join('');
+
+  renderCharts(t);
+}
+
+function renderCharts(t){
+  const active=S.days.filter(d=>VENDS.some(k=>n(d[k])>0));
+  const totals=active.map(d=>VENDS.reduce((s,k)=>s+n(d[k]),0));
+  const labels=active.map(d=>d.d);
+  const maxV=Math.max(...totals,0);
+  if(charts.daily){charts.daily.destroy();charts.daily=null;}
+  if(charts.canal){charts.canal.destroy();charts.canal=null;}
+  charts.daily=new Chart(document.getElementById('dailyChart'),{
+    type:'bar',
+    data:{labels,datasets:[{data:totals,backgroundColor:totals.map(v=>v===maxV?'#f0ede8':'#3e3e3a'),borderRadius:2,borderSkipped:false}]},
+    options:{responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>'R$ '+Math.round(c.raw).toLocaleString('pt-BR')}}},
+      scales:{
+        x:{grid:{color:'rgba(255,255,255,.03)'},ticks:{color:'#5a5a54',font:{size:9,family:'DM Sans'},maxRotation:0,autoSkip:true,maxTicksLimit:12}},
+        y:{grid:{color:'rgba(255,255,255,.03)'},ticks:{color:'#5a5a54',font:{size:9,family:'DM Sans'},callback:v=>'R$'+Math.round(v/1000)+'k'}}
+      }}
+  });
+  charts.canal=new Chart(document.getElementById('canalChart'),{
+    type:'doughnut',
+    data:{labels:['Atacado+Feira','Whats','Quiosques'],
+      datasets:[{data:[t.atfe,t.whats,t.qu],backgroundColor:['#f0ede8','#5a5a54','#2a2a28'],borderWidth:0,hoverOffset:4}]},
+    options:{responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>c.label+': '+fmt(c.raw)+' ('+((c.raw/t.total)*100).toFixed(1)+'%)'}}},
+      cutout:'68%'}
+  });
+}
+
+function renderCanais(){
+  const t=calcTotals();const v=S.v;
+  const canais=[
+    {title:'Whats — Agent Shop + Varejo',total:t.whats,meta:S.metaWhats,lbl:'meta Whats',rows:[
+      {n:'Agent Shop (IA)',val:n(v.agent),p:n(v.agent)/t.whats,ia:true},
+      {n:'Rafa',val:n(v.rafa),p:n(v.rafa)/t.whats},
+      {n:'Lorena',val:n(v.lorena),p:n(v.lorena)/t.whats},
+      {n:'João',val:n(v.joao),p:n(v.joao)/t.whats}]},
+    {title:'Atacado',total:t.at,meta:305000,lbl:'meta Atacado',rows:[
+      {n:'Emily',val:n(v.emily),p:n(v.emily)/t.at},
+      {n:'Giovana',val:n(v.giovana),p:n(v.giovana)/t.at},
+      {n:'Fabio',val:n(v.fabio),p:n(v.fabio)/t.at},
+      {n:'Sarah',val:n(v.sarah),p:n(v.sarah)/t.at},
+      {n:'Ana / Nathalia',val:n(v.ana),p:n(v.ana)/t.at}]},
+    {title:'Feira — Bijoias',total:t.fe,meta:130000,lbl:'meta Feira',rows:[
+      {n:'Feira',val:n(v.feira),p:1}]},
+    {title:'Quiosques',total:t.qu,meta:S.metaQuiosque,lbl:'meta Quiosques',rows:[
+      {n:'BC',val:n(v.bc),p:n(v.bc)/t.qu},
+      {n:'Mooca',val:n(v.mooca),p:n(v.mooca)/t.qu},
+      {n:'Neumarket',val:n(v.neu),p:n(v.neu)/t.qu},
+      {n:'Garten',val:n(v.garten),p:n(v.garten)/t.qu}]},
+  ];
+  document.getElementById('canalBlocks').innerHTML=canais.map(c=>`
+    <div class="canal-block">
+      <div class="canal-hd">
+        <span class="canal-hd-name">${c.title}</span>
+        <span class="canal-hd-total">${fmt(c.total)}</span>
+      </div>
+      <div class="canal-meta-row">
+        <div class="cmbar"><div class="cmbar-fill" style="width:${pctN(c.total,c.meta)}%"></div></div>
+        <span class="cm-pct">${pctS(c.total,c.meta)}</span>
+        <span class="cm-lbl">${c.lbl} ${fmt(c.meta)}</span>
+      </div>
+      ${c.rows.map(r=>`
+        <div class="vrow"${r.ia?' style="background:var(--s200)"':''}>
+          <span class="vrow-name"${r.ia?' style="color:var(--white)"':''}>
+            ${r.ia?'<span style="font-size:.55rem;letter-spacing:.08em;text-transform:uppercase;color:var(--s500);margin-right:.35rem">IA</span>':''}${r.n}
+          </span>
+          <div class="vrow-right">
+            <div class="vrow-mini"><div class="vrow-mini-fill" style="width:${Math.min((r.p||0)*100,100)}%"></div></div>
+            <span class="vrow-share">${((r.p||0)*100).toFixed(1)}%</span>
+            <span class="vrow-val">${fmt(r.val)}</span>
+          </div>
+        </div>`).join('')}
+    </div>`).join('');
+}
+
+function renderHistorico(){
+  const hist=S.historico||[];
+  const el=document.getElementById('histList');
+  if(!el)return;
+  if(hist.length===0){el.innerHTML='<p style="font-size:.72rem;color:var(--s500)">Nenhum mês encerrado ainda. O histórico aparece aqui após virar o mês no painel principal.</p>';return;}
+  const nMap={agent:'Agent Shop',emily:'Emily',giovana:'Giovana',fabio:'Fabio',sarah:'Sarah',rafa:'Rafa',lorena:'Lorena',joao:'João',bc:'BC',mooca:'Mooca',neu:'Neumarket',garten:'Garten'};
+  el.innerHTML='<div class="hist-list">'+[...hist].reverse().map(h=>{
+    const prog=pctN(h.total,h.meta||S.metaMax);
+    const pc=prog>=100?'#6fcf97':prog>=80?'#f2c94c':'#eb5757';
+    const topVends=h.vends?Object.entries(h.vends).sort((a,b)=>b[1]-a[1]).slice(0,6):[];
+    return `<div class="hist-item">
+      <div class="hist-item-header">
+        <span class="hist-mes">${h.mes}</span>
+        <span style="font-family:var(--fd);font-size:.95rem;color:${pc}">${fmt(h.total)}</span>
+      </div>
+      <div style="height:2px;background:var(--s300);border-radius:99px;margin-bottom:.7rem;overflow:hidden">
+        <div style="height:100%;width:${Math.min(prog,100)}%;background:${pc};border-radius:99px"></div>
+      </div>
+      <div class="hist-canais" style="margin-bottom:.6rem">
+        <div class="hist-canal">Atacado+Feira<span>${fmt(h.atfe)}</span></div>
+        <div class="hist-canal">Whats+Agent<span>${fmt(h.whats)}</span></div>
+        <div class="hist-canal">Quiosques<span>${fmt(h.qu)}</span></div>
+      </div>
+      ${topVends.length?`<div style="border-top:1px solid var(--s300);padding-top:.55rem">
+        <div style="font-size:.55rem;letter-spacing:.1em;text-transform:uppercase;color:var(--s500);margin-bottom:.4rem">Vendedores</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:.3rem">
+          ${topVends.map(([k,v])=>`<div style="display:flex;justify-content:space-between;font-size:.65rem;gap:.4rem"><span style="color:var(--s600)">${nMap[k]||k}</span><span style="color:var(--white);font-weight:500">${fmt(v)}</span></div>`).join('')}
+        </div>
+      </div>`:''}
+    </div>`;
+  }).join('')+'</div>';
+}
+
+renderDash();
+</script>
+</body>
+</html>
