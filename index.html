@@ -33,8 +33,10 @@ body{font-family:var(--fb);background:var(--bg);color:var(--white);min-height:10
 .sb-foot{padding:1.25rem 1.5rem;border-top:1px solid var(--s200);font-size:.62rem;color:var(--s500);line-height:1.7}
 .main{overflow-y:auto}
 .topbar{display:flex;align-items:center;justify-content:space-between;padding:1.25rem 2rem;border-bottom:1px solid var(--s200);position:sticky;top:0;background:rgba(8,8,8,.96);backdrop-filter:blur(12px);z-index:10}
+.topbar-left{display:flex;align-items:center;gap:.75rem}
 .topbar-title{font-family:var(--fd);font-size:1.05rem;font-weight:400;letter-spacing:.1em;color:var(--white)}
 .topbar-date{font-size:.65rem;color:var(--s500);letter-spacing:.04em;font-style:italic}
+.readonly-badge{display:inline-flex;align-items:center;gap:.35rem;font-size:.58rem;letter-spacing:.08em;text-transform:uppercase;color:var(--s500);border:1px solid var(--s300);border-radius:99px;padding:.25rem .7rem}
 .page{display:none;padding:2rem}
 .page.active{display:block}
 .sec{font-size:.55rem;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--s500);margin-bottom:.9rem;margin-top:2rem;padding-bottom:.5rem;border-bottom:1px solid var(--s200)}
@@ -95,11 +97,9 @@ body{font-family:var(--fb);background:var(--bg);color:var(--white);min-height:10
 .hist-item{background:var(--s200);border-radius:var(--r);padding:.85rem 1rem;border:1px solid var(--s300)}
 .hist-item-header{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.5rem}
 .hist-mes{font-size:.72rem;font-weight:500;color:var(--white)}
-.hist-total{font-family:var(--fd);font-size:.95rem}
 .hist-canais{display:grid;grid-template-columns:1fr 1fr 1fr;gap:.4rem}
 .hist-canal{font-size:.62rem;color:var(--s600)}
 .hist-canal span{color:var(--s700);display:block}
-.readonly-badge{display:inline-flex;align-items:center;gap:.35rem;font-size:.58rem;letter-spacing:.08em;text-transform:uppercase;color:var(--s500);border:1px solid var(--s300);border-radius:99px;padding:.25rem .7rem;margin-left:.75rem}
 ::-webkit-scrollbar{width:3px;height:3px}
 ::-webkit-scrollbar-thumb{background:var(--s300);border-radius:99px}
 </style>
@@ -134,7 +134,7 @@ body{font-family:var(--fb);background:var(--bg);color:var(--white);min-height:10
 
   <main class="main">
     <div class="topbar">
-      <div style="display:flex;align-items:center">
+      <div class="topbar-left">
         <span class="topbar-title" id="topbarTitle">Dashboard</span>
         <span class="readonly-badge">
           <svg width="8" height="8" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="7" width="10" height="8" rx="1"/><path d="M5 7V5a3 3 0 016 0v2"/></svg>
@@ -213,61 +213,62 @@ body{font-family:var(--fb);background:var(--bg);color:var(--white);min-height:10
     <!-- HISTÓRICO -->
     <div class="page" id="pageHistorico">
       <div class="sec" style="margin-top:0">Resultados mensais</div>
-      <div id="histList"><p style="font-size:.72rem;color:var(--s500)">Nenhum mês encerrado ainda.</p></div>
+      <div id="histList"><p style="font-size:.72rem;color:var(--s500)">Nenhum mês encerrado ainda. O histórico aparece aqui após virar o mês no painel principal.</p></div>
     </div>
 
   </main>
 </div>
 
 <script>
-// ── DADOS EMBUTIDOS ──────────────────────────────────────────
-// Substitua este bloco DATA ao gerar uma nova versão do viewer
-const DATA = {
+const VENDS=['rafa','lorena','joao','agent','emily','giovana','fabio','sarah','ana','feira','bc','mooca','neu','garten'];
+
+// ── DADOS — atualizado em 25/03/2026 ─────────────────────────
+const S={
   mes:'Março 2026',
+  dias:31,
   metaMax:1050000,
   metaAtacado:400000,
   metaWhats:375000,
   metaQuiosque:240000,
-  atualizadoEm:'24/03/2026',
-  v:{
-    rafa:41026.15,lorena:31112.07,joao:14853.61,
-    emily:133575.91,giovana:56729.59,fabio:49056.06,sarah:33668.37,ana:5015.23,
-    feira:111194.47,agent:148095.73,fabonus:0,
-    bc:60237.12,mooca:48655.30,neu:30027.34,garten:29775.97
-  },
+  atualizadoEm:'25/03/2026',
+  historico:[],
   days:[
-    {d:'01/03',rafa:0,lorena:0,joao:0,agent:4769.28,emily:0,giovana:0,fabio:0,sarah:0,ana:0,feira:0,bc:3529.15,mooca:766.80,neu:784.70,garten:1695.02},
-    {d:'02/03',rafa:1015.14,lorena:1967.63,joao:0,agent:4853.29,emily:3448.12,giovana:6557.65,fabio:0,sarah:1799.76,ana:0,feira:0,bc:1167.90,mooca:664.70,neu:487.90,garten:129.90},
-    {d:'03/03',rafa:1186.55,lorena:3883.28,joao:0,agent:7353.59,emily:5293.68,giovana:6303.81,fabio:1028.60,sarah:2250.17,ana:0,feira:0,bc:2292.45,mooca:1524.80,neu:299.90,garten:1263.70},
-    {d:'04/03',rafa:824.53,lorena:1218.53,joao:0,agent:7590.55,emily:1631.48,giovana:0,fabio:0,sarah:5111.55,ana:0,feira:0,bc:2205.31,mooca:0,neu:1450.70,garten:696.90},
-    {d:'05/03',rafa:2863.94,lorena:2447.87,joao:0,agent:5037.83,emily:7580.34,giovana:0,fabio:3187.80,sarah:0,ana:0,feira:0,bc:2205.31,mooca:0,neu:1450.70,garten:696.90},
-    {d:'06/03',rafa:2960.49,lorena:2274.27,joao:0,agent:3814.00,emily:12639.59,giovana:5488.02,fabio:2847.90,sarah:0,ana:0,feira:0,bc:2916.11,mooca:1865.61,neu:1516.40,garten:2006.40},
+    {d:'01/03',rafa:0,lorena:0,joao:0,agent:4769.28,emily:0,giovana:0,fabio:0,sarah:0,ana:0,feira:0,bc:3529.15,mooca:766.8,neu:784.7,garten:1695.02},
+    {d:'02/03',rafa:1015.14,lorena:1967.63,joao:0,agent:4853.29,emily:3448.12,giovana:6557.65,fabio:0,sarah:1799.76,ana:0,feira:0,bc:1167.9,mooca:664.7,neu:487.9,garten:129.9},
+    {d:'03/03',rafa:1186.55,lorena:3883.28,joao:0,agent:7353.59,emily:5293.68,giovana:6303.81,fabio:1028.6,sarah:2250.17,ana:0,feira:0,bc:2292.45,mooca:1524.8,neu:299.9,garten:1263.7},
+    {d:'04/03',rafa:824.53,lorena:1218.53,joao:0,agent:7590.55,emily:1631.48,giovana:0,fabio:0,sarah:5111.55,ana:0,feira:0,bc:2205.31,mooca:0,neu:1450.7,garten:696.9},
+    {d:'05/03',rafa:2863.94,lorena:2447.87,joao:0,agent:5037.83,emily:7580.34,giovana:0,fabio:3187.8,sarah:0,ana:0,feira:0,bc:2205.31,mooca:0,neu:1450.7,garten:696.9},
+    {d:'06/03',rafa:2960.49,lorena:2274.27,joao:0,agent:3814.0,emily:12639.59,giovana:5488.02,fabio:2847.9,sarah:0,ana:0,feira:0,bc:2916.11,mooca:1865.61,neu:1516.4,garten:2006.4},
     {d:'07/03',rafa:0,lorena:0,joao:0,agent:3552.58,emily:2178.63,giovana:0,fabio:4998.65,sarah:0,ana:0,feira:0,bc:6177.84,mooca:2934.01,neu:5104.94,garten:4153.82},
-    {d:'08/03',rafa:431.11,lorena:0,joao:0,agent:3011.90,emily:0,giovana:0,fabio:4120.84,sarah:0,ana:0,feira:0,bc:3882.83,mooca:2601.40,neu:959.70,garten:1073.80},
-    {d:'09/03',rafa:2772.81,lorena:1467.04,joao:0,agent:4126.66,emily:6029.39,giovana:6184.31,fabio:4892.92,sarah:0,ana:1559.00,feira:0,bc:1522.70,mooca:2226.00,neu:1565.62,garten:0},
-    {d:'10/03',rafa:3823.40,lorena:3310.15,joao:0,agent:10831.58,emily:9251.35,giovana:3668.30,fabio:0,sarah:0,ana:1837.50,feira:0,bc:1682.14,mooca:1893.23,neu:189.90,garten:1364.50},
-    {d:'11/03',rafa:4706.02,lorena:2213.62,joao:0,agent:9459.95,emily:13081.45,giovana:0,fabio:0,sarah:0,ana:0,feira:0,bc:1616.00,mooca:1767.30,neu:1963.65,garten:999.50},
-    {d:'12/03',rafa:2733.01,lorena:2767.82,joao:0,agent:11837.09,emily:10211.81,giovana:3012.06,fabio:2544.46,sarah:3139.55,ana:0,feira:0,bc:2572.60,mooca:3270.93,neu:2048.90,garten:899.80},
-    {d:'13/03',rafa:2933.37,lorena:1712.35,joao:0,agent:7098.56,emily:2855.84,giovana:7320.45,fabio:0,sarah:3269.84,ana:0,feira:0,bc:5308.20,mooca:3235.82,neu:1024.20,garten:869.50},
-    {d:'14/03',rafa:80.81,lorena:179.91,joao:0,agent:9513.27,emily:1595.14,giovana:0,fabio:3729.91,sarah:0,ana:0,feira:0,bc:4593.13,mooca:2665.42,neu:1908.70,garten:2653.21},
-    {d:'15/03',rafa:316.54,lorena:131.81,joao:0,agent:7852.09,emily:0,giovana:0,fabio:0,sarah:0,ana:0,feira:0,bc:1633.91,mooca:1529.00,neu:929.50,garten:1435.40},
-    {d:'16/03',rafa:2564.76,lorena:3346.89,joao:1873.31,agent:6709.94,emily:10272.87,giovana:3217.25,fabio:0,sarah:0,ana:0,feira:57220.24,bc:1602.60,mooca:4632.40,neu:464.40,garten:1234.40},
-    {d:'17/03',rafa:2913.61,lorena:2015.69,joao:2744.88,agent:8058.78,emily:12390.33,giovana:5030.11,fabio:0,sarah:0,ana:0,feira:43320.33,bc:1602.53,mooca:1612.72,neu:473.72,garten:497.90},
-    {d:'18/03',rafa:1230.96,lorena:202.23,joao:1849.23,agent:4564.16,emily:8863.70,giovana:0,fabio:6141.49,sarah:5718.64,ana:1618.73,feira:10653.90,bc:1425.00,mooca:1538.60,neu:1447.31,garten:943.80},
-    {d:'19/03',rafa:2920.08,lorena:1972.98,joao:3414.39,agent:7745.36,emily:5606.98,giovana:1711.05,fabio:6967.61,sarah:1785.74,ana:0,feira:0,bc:1906.40,mooca:1019.60,neu:384.80,garten:1594.22},
-    {d:'20/03',rafa:2453.10,lorena:0,joao:2382.00,agent:7452.41,emily:4185.08,giovana:8236.58,fabio:6126.69,sarah:5396.30,ana:0,feira:0,bc:3546.61,mooca:3373.93,neu:444.80,garten:1047.40},
-    {d:'21/03',rafa:0,lorena:0,joao:0,agent:6205.04,emily:6389.44,giovana:0,fabio:2469.19,sarah:3577.82,ana:0,feira:0,bc:2806.20,mooca:3813.93,neu:3317.90,garten:2470.70},
-    {d:'22/03',rafa:0,lorena:0,joao:0,agent:6657.82,emily:4007.66,giovana:0,fabio:0,sarah:0,ana:0,feira:0,bc:1983.90,mooca:4359.40,neu:849.40,garten:1239.40},
-    {d:'23/03',rafa:2295.92,lorena:0,joao:2589.80,agent:0,emily:6063.03,giovana:0,fabio:0,sarah:1619.00,ana:0,feira:0,bc:2058.30,mooca:1359.70,neu:959.60,garten:809.80},
+    {d:'08/03',rafa:431.11,lorena:0,joao:0,agent:3011.9,emily:0,giovana:0,fabio:4120.84,sarah:0,ana:0,feira:0,bc:3882.83,mooca:2601.4,neu:959.7,garten:1073.8},
+    {d:'09/03',rafa:2772.81,lorena:1467.04,joao:0,agent:4126.66,emily:6029.39,giovana:6184.31,fabio:4892.92,sarah:0,ana:1559.0,feira:0,bc:1522.7,mooca:2226.0,neu:1565.62,garten:0},
+    {d:'10/03',rafa:3823.4,lorena:3310.15,joao:0,agent:10831.58,emily:9251.35,giovana:3668.3,fabio:0,sarah:0,ana:1837.5,feira:0,bc:1682.14,mooca:1893.23,neu:189.9,garten:1364.5},
+    {d:'11/03',rafa:4706.02,lorena:2213.62,joao:0,agent:9459.95,emily:13081.45,giovana:0,fabio:0,sarah:0,ana:0,feira:0,bc:1616.0,mooca:1767.3,neu:1963.65,garten:999.5},
+    {d:'12/03',rafa:2733.01,lorena:2767.82,joao:0,agent:11837.09,emily:10211.81,giovana:3012.06,fabio:2544.46,sarah:3139.55,ana:0,feira:0,bc:2572.6,mooca:3270.93,neu:2048.9,garten:899.8},
+    {d:'13/03',rafa:2933.37,lorena:1712.35,joao:0,agent:7098.56,emily:2855.84,giovana:7320.45,fabio:0,sarah:3269.84,ana:0,feira:0,bc:5308.2,mooca:3235.82,neu:1024.2,garten:869.5},
+    {d:'14/03',rafa:80.81,lorena:179.91,joao:0,agent:9513.27,emily:1595.14,giovana:0,fabio:3729.91,sarah:0,ana:0,feira:0,bc:4593.13,mooca:2665.42,neu:1908.7,garten:2653.21},
+    {d:'15/03',rafa:316.54,lorena:131.81,joao:0,agent:7852.09,emily:0,giovana:0,fabio:0,sarah:0,ana:0,feira:0,bc:1633.91,mooca:1529.0,neu:929.5,garten:1435.4},
+    {d:'16/03',rafa:2564.76,lorena:3346.89,joao:1873.31,agent:6709.94,emily:10272.87,giovana:3217.25,fabio:0,sarah:0,ana:0,feira:57220.24,bc:1602.6,mooca:4632.4,neu:464.4,garten:1234.4},
+    {d:'17/03',rafa:2913.61,lorena:2015.69,joao:2744.88,agent:8058.78,emily:12390.33,giovana:5030.11,fabio:0,sarah:0,ana:0,feira:43320.33,bc:1602.53,mooca:1612.72,neu:473.72,garten:497.9},
+    {d:'18/03',rafa:1230.96,lorena:202.23,joao:1849.23,agent:4564.16,emily:8863.7,giovana:0,fabio:6141.49,sarah:5718.64,ana:1618.73,feira:10653.9,bc:1425.0,mooca:1538.6,neu:1447.31,garten:943.8},
+    {d:'19/03',rafa:2920.08,lorena:1972.98,joao:3414.39,agent:7745.36,emily:5606.98,giovana:1711.05,fabio:6967.61,sarah:1785.74,ana:0,feira:0,bc:1906.4,mooca:1019.6,neu:384.8,garten:1594.22},
+    {d:'20/03',rafa:2453.1,lorena:0,joao:2382.0,agent:7452.41,emily:4185.08,giovana:8236.58,fabio:6126.69,sarah:5396.3,ana:0,feira:0,bc:3546.61,mooca:3373.93,neu:444.8,garten:1047.4},
+    {d:'21/03',rafa:0,lorena:0,joao:0,agent:6205.04,emily:6389.44,giovana:0,fabio:2469.19,sarah:3577.82,ana:0,feira:0,bc:2806.2,mooca:3813.93,neu:3317.9,garten:2470.7},
+    {d:'22/03',rafa:0,lorena:0,joao:0,agent:6657.82,emily:4007.66,giovana:0,fabio:0,sarah:0,ana:0,feira:0,bc:1983.9,mooca:4359.4,neu:849.4,garten:1239.4},
+    {d:'23/03',rafa:2295.92,lorena:0,joao:2589.8,agent:8306.73,emily:6063.03,giovana:0,fabio:0,sarah:1619.0,ana:0,feira:0,bc:2058.3,mooca:1359.7,neu:959.6,garten:809.8},
+    {d:'24/03',rafa:2405.14,lorena:0,joao:2570.41,agent:4302.64,emily:5452.96,giovana:1964.83,fabio:5005.26,sarah:3906.39,ana:0,feira:0,bc:1784.3,mooca:0,neu:149.9,garten:437.8},
   ],
-  historico:[]
+  v:{
+    rafa:43431.29,lorena:31112.07,joao:17424.02,
+    agent:160705.1,emily:139028.87,giovana:58694.42,
+    fabio:54061.32,sarah:37574.76,ana:5015.23,
+    feira:111194.47,fabonus:0,
+    bc:62021.42,mooca:48655.3,neu:30177.24,garten:30213.77
+  }
 };
-// ────────────────────────────────────────────────────────────
+// ─────────────────────────────────────────────────────────────
 
-const VENDS=['rafa','lorena','joao','agent','emily','giovana','fabio','sarah','ana','feira','bc','mooca','neu','garten'];
 let charts={daily:null,canal:null};
-const S=DATA;
-
 function fmt(v){return 'R$ '+Math.round(v).toLocaleString('pt-BR');}
 function pctN(a,b){return b>0?Math.min(a/b*100,100):0;}
 function pctS(a,b){return pctN(a,b).toFixed(1)+'%';}
@@ -297,13 +298,13 @@ function goPage(id,el){
 function renderDash(){
   const t=calcTotals();
   const diasLanc=S.days.filter(d=>VENDS.some(k=>n(d[k])>0)).length;
-  const diasRest=Math.max(S.dias||31-diasLanc,0);
+  const diasRest=Math.max(S.dias-diasLanc,0);
   const falta=S.metaMax-t.total;
   const perDay=diasRest>0?falta/diasRest:0;
   const prog=pctN(t.total,S.metaMax);
 
   document.getElementById('sbSub').textContent='SG · '+S.mes;
-  document.getElementById('sbAtual').textContent=S.atualizadoEm||'—';
+  document.getElementById('sbAtual').textContent=S.atualizadoEm;
   document.getElementById('topbarDate').textContent=new Date().toLocaleDateString('pt-BR',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
   document.getElementById('mFat').textContent=fmt(t.total);
   document.getElementById('mFatSub').textContent='até dia '+diasLanc+' — '+S.mes;
@@ -444,7 +445,7 @@ function renderHistorico(){
     return `<div class="hist-item">
       <div class="hist-item-header">
         <span class="hist-mes">${h.mes}</span>
-        <span class="hist-total" style="color:${pc}">${fmt(h.total)}</span>
+        <span style="font-family:var(--fd);font-size:.95rem;color:${pc}">${fmt(h.total)}</span>
       </div>
       <div style="height:2px;background:var(--s300);border-radius:99px;margin-bottom:.7rem;overflow:hidden">
         <div style="height:100%;width:${Math.min(prog,100)}%;background:${pc};border-radius:99px"></div>
