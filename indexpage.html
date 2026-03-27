@@ -1,0 +1,1439 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#0A0A0A">
+<title>Saint Germain — Seja um Revendedor</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,200;0,300;0,400;0,500;0,600;1,200;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #0A0A0A;
+    --dark: #111111;
+    --dark2: #1C1C1C;
+    --gray: #2E2E2E;
+    --gray-mid: #555555;
+    --gray-light: #888888;
+    --border: #333333;
+    --text: #F0F0F0;
+    --text-muted: #888888;
+    --white: #FFFFFF;
+    --accent: #FFFFFF;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+  body {
+    background: var(--black);
+    color: var(--text);
+    font-family: 'Barlow', sans-serif;
+    font-weight: 300;
+    min-height: 100vh;
+    min-height: 100svh;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    padding: 60px 24px;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 50% 0%, rgba(255,255,255,0.04) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 40% at 80% 80%, rgba(255,255,255,0.02) 0%, transparent 60%);
+  }
+
+  .hero-grid-lines {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: radial-gradient(ellipse 100% 100% at 50% 50%, black 20%, transparent 80%);
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    max-width: 700px;
+  }
+
+  .brand-mark {
+    display: inline-flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 48px;
+    animation: fadeDown 0.8s ease both;
+  }
+
+  .brand-mark-line {
+    width: 40px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4));
+  }
+  .brand-mark-line.right {
+    background: linear-gradient(90deg, rgba(255,255,255,0.4), transparent);
+  }
+
+  .brand-name {
+    font-family: 'Barlow', sans-serif;
+    font-weight: 300;
+    font-size: 11px;
+    letter-spacing: 0.5em;
+    text-transform: uppercase;
+    color: var(--white);
+  }
+
+  .hero h1 {
+    font-family: 'Barlow', sans-serif;
+    font-weight: 200;
+    font-size: clamp(52px, 9vw, 96px);
+    line-height: 1;
+    letter-spacing: -0.01em;
+    margin-bottom: 24px;
+    animation: fadeDown 0.8s 0.1s ease both;
+  }
+
+  .hero h1 em {
+    font-style: italic;
+    font-weight: 200;
+    color: var(--gray-light);
+  }
+
+  .hero-subtitle {
+    font-size: 11px;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--gray-light);
+    margin-bottom: 48px;
+    font-weight: 400;
+    animation: fadeDown 0.8s 0.2s ease both;
+  }
+
+  .hero-desc {
+    font-size: 15px;
+    line-height: 1.8;
+    color: var(--text-muted);
+    max-width: 480px;
+    margin: 0 auto 56px;
+    animation: fadeDown 0.8s 0.3s ease both;
+  }
+
+  .hero-cta {
+    animation: fadeDown 0.8s 0.4s ease both;
+  }
+
+  .btn-primary {
+    display: inline-block;
+    padding: 15px 48px;
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.4);
+    color: var(--white);
+    font-family: 'Barlow', sans-serif;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .btn-primary::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--white);
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+    z-index: -1;
+  }
+
+  .btn-primary:hover {
+    color: var(--black);
+    border-color: var(--white);
+  }
+  .btn-primary:hover::before {
+    transform: translateX(0);
+  }
+
+  /* FORM SECTION */
+  .form-section {
+    padding: 80px 24px 120px;
+    padding-bottom: max(120px, calc(80px + env(safe-area-inset-bottom)));
+    position: relative;
+  }
+
+  .form-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 1px;
+    height: 80px;
+    background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.15));
+  }
+
+  .form-container {
+    max-width: 640px;
+    margin: 0 auto;
+  }
+
+  .form-header {
+    text-align: center;
+    margin-bottom: 56px;
+  }
+
+  .form-eyebrow {
+    font-size: 10px;
+    letter-spacing: 0.45em;
+    text-transform: uppercase;
+    color: var(--gray-light);
+    margin-bottom: 16px;
+    font-weight: 400;
+  }
+
+  .form-header h2 {
+    font-family: 'Barlow', sans-serif;
+    font-weight: 200;
+    font-size: clamp(36px, 5vw, 52px);
+    line-height: 1.1;
+    margin-bottom: 16px;
+    letter-spacing: -0.01em;
+  }
+
+  .form-header p {
+    font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.7;
+  }
+
+  /* PROGRESS */
+  .progress-bar {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    margin-bottom: 48px;
+    padding: 0 8px;
+  }
+
+  .progress-step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    flex: 1;
+    position: relative;
+  }
+
+  .progress-step::after {
+    content: '';
+    position: absolute;
+    top: 14px;
+    left: 50%;
+    width: 100%;
+    height: 1px;
+    background: var(--gray);
+    z-index: 0;
+    transition: background 0.4s ease;
+  }
+
+  .progress-step:last-child::after { display: none; }
+
+  .progress-dot {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: 1px solid var(--gray);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--text-muted);
+    position: relative;
+    z-index: 1;
+    background: var(--black);
+    transition: all 0.4s ease;
+  }
+
+  .progress-step.active .progress-dot {
+    border-color: var(--white);
+    color: var(--white);
+    box-shadow: 0 0 0 4px rgba(255,255,255,0.08);
+  }
+
+  .progress-step.done .progress-dot {
+    border-color: var(--white);
+    background: var(--white);
+    color: var(--black);
+  }
+
+  .progress-step.done::after {
+    background: rgba(255,255,255,0.2);
+  }
+
+  .progress-label {
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+
+  .progress-step.active .progress-label {
+    color: var(--white);
+  }
+
+  /* FORM STEPS */
+  .form-step {
+    display: none;
+    animation: stepIn 0.4s ease;
+  }
+  .form-step.active { display: block; }
+
+  @keyframes stepIn {
+    from { opacity: 0; transform: translateX(20px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+
+  /* FIELD STYLES */
+  .field-group {
+    margin-bottom: 32px;
+  }
+
+  .field-label {
+    display: block;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gray-light);
+    margin-bottom: 16px;
+  }
+
+  .field-label span {
+    color: var(--white);
+    margin-left: 4px;
+  }
+
+  /* RADIO / CHECKBOX CUSTOM */
+  .options-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .options-grid.single-col {
+    grid-template-columns: 1fr;
+  }
+
+  .option-item {
+    position: relative;
+  }
+
+  .option-item input[type="radio"],
+  .option-item input[type="checkbox"] {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+
+  .option-label {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 18px;
+    border: 1px solid var(--gray);
+    cursor: pointer;
+    transition: all 0.25s ease;
+    font-size: 13px;
+    color: var(--text-muted);
+    position: relative;
+    overflow: hidden;
+    user-select: none;
+    -webkit-user-select: none;
+    min-height: 48px;
+  }
+
+  .option-label::before {
+    content: '';
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    border: 1px solid var(--gray);
+    flex-shrink: 0;
+    transition: all 0.25s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .checkbox-label::before {
+    border-radius: 2px;
+  }
+
+  .option-item input:checked + .option-label {
+    border-color: var(--white);
+    color: var(--white);
+    background: rgba(255,255,255,0.04);
+  }
+
+  .option-item input:checked + .option-label::before {
+    background: var(--white);
+    border-color: var(--white);
+    box-shadow: inset 0 0 0 3px var(--black);
+  }
+
+  /* TEXT INPUT */
+  .text-input {
+    width: 100%;
+    padding: 16px 20px;
+    background: transparent;
+    border: 1px solid var(--gray);
+    color: var(--text);
+    font-family: 'Barlow', sans-serif;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.25s ease;
+  }
+
+  .text-input::placeholder {
+    color: var(--text-muted);
+    font-size: 13px;
+  }
+
+  .text-input:focus {
+    border-color: var(--white);
+  }
+
+  .input-hint {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-top: 8px;
+    font-style: italic;
+  }
+
+  /* ALERTA DE NÃO CNPJ */
+  .alert-box {
+    padding: 20px 24px;
+    border: 1px solid rgba(255,255,255,0.15);
+    background: rgba(255,255,255,0.03);
+    margin-top: 16px;
+    display: none;
+  }
+
+  .alert-box.visible { display: block; }
+
+  .alert-box p {
+    font-size: 13px;
+    color: var(--gray-light);
+    line-height: 1.6;
+  }
+
+  .alert-box strong {
+    color: var(--white);
+  }
+
+  /* NAV BUTTONS */
+  .form-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 48px;
+    padding-top: 32px;
+    border-top: 1px solid var(--gray);
+  }
+
+  .btn-back {
+    background: transparent;
+    border: none;
+    color: var(--gray-light);
+    font-family: 'Barlow', sans-serif;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: color 0.2s ease;
+    padding: 0;
+  }
+
+  .btn-back:hover { color: var(--white); }
+  .btn-back svg { transition: transform 0.2s ease; }
+  .btn-back:hover svg { transform: translateX(-4px); }
+
+  .btn-next {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 15px 40px;
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.4);
+    color: var(--white);
+    font-family: 'Barlow', sans-serif;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .btn-next::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--white);
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+    z-index: 0;
+  }
+
+  .btn-next span, .btn-next svg {
+    position: relative;
+    z-index: 1;
+    transition: color 0.3s ease;
+  }
+
+  .btn-next:hover { color: var(--black); border-color: var(--white); }
+  .btn-next:hover::before { transform: translateX(0); }
+  .btn-next svg { transition: transform 0.2s ease, color 0.3s ease; }
+  .btn-next:hover svg { transform: translateX(4px); }
+
+  /* STEP COUNT */
+  .step-count {
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    color: var(--text-muted);
+    text-align: center;
+    margin-bottom: 32px;
+  }
+
+  /* SUCCESS */
+  .success-screen {
+    display: none;
+    text-align: center;
+    padding: 80px 24px;
+    animation: stepIn 0.6s ease;
+  }
+
+  .success-screen.visible { display: block; }
+
+  .success-icon {
+    width: 80px;
+    height: 80px;
+    border: 1px solid rgba(255,255,255,0.3);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 40px;
+    animation: scaleIn 0.5s 0.2s ease both;
+  }
+
+  @keyframes scaleIn {
+    from { transform: scale(0.5); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+  }
+
+  .success-screen h2 {
+    font-family: 'Barlow', sans-serif;
+    font-weight: 200;
+    font-size: clamp(36px, 6vw, 56px);
+    margin-bottom: 20px;
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+  }
+
+  .success-screen p {
+    font-size: 14px;
+    color: var(--text-muted);
+    line-height: 1.8;
+    max-width: 420px;
+    margin: 0 auto;
+  }
+
+  /* DIVIDER */
+  .ornament {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin: 32px 0;
+  }
+  .ornament-line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--border));
+  }
+  .ornament-line.right {
+    background: linear-gradient(90deg, var(--border), transparent);
+  }
+  .ornament-diamond {
+    width: 5px;
+    height: 5px;
+    border: 1px solid var(--gray-mid);
+    transform: rotate(45deg);
+    flex-shrink: 0;
+  }
+
+  /* SCREENS */
+  .screen {
+    position: fixed;
+    inset: 0;
+    overflow-y: auto;
+    transition: opacity 0.55s ease, transform 0.55s ease;
+    will-change: opacity, transform;
+  }
+
+  .screen.hidden {
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(24px);
+  }
+
+  #screen-form {
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(24px);
+  }
+
+  #screen-form.visible {
+    opacity: 1;
+    pointer-events: all;
+    transform: translateY(0);
+  }
+
+  /* FOOTER */
+  footer {
+    border-top: 1px solid var(--gray);
+    padding: 32px 24px;
+    text-align: center;
+  }
+
+  footer p {
+    font-size: 11px;
+    color: var(--text-muted);
+    letter-spacing: 0.15em;
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* VALIDATION */
+  .field-error {
+    font-size: 11px;
+    color: #e06060;
+    margin-top: 8px;
+    display: none;
+  }
+
+  .field-error.visible { display: block; }
+
+  /* ── RESPONSIVE ─────────────────────────────── */
+
+  /* Tablet */
+  @media (max-width: 768px) {
+    .form-section { padding: 48px 20px 80px; }
+    .form-container { max-width: 100%; }
+    .progress-label { display: none; }
+    .progress-dot { width: 24px; height: 24px; font-size: 9px; }
+    .progress-step::after { top: 12px; }
+  }
+
+  /* Mobile */
+  @media (max-width: 480px) {
+    /* Hero */
+    .hero { padding: 40px 24px; min-height: 100svh; }
+    .hero-content { max-width: 100%; }
+    .hero-desc { font-size: 13px; margin-bottom: 40px; }
+
+    /* Form section */
+    .form-section { padding: 32px 16px 80px; }
+    .form-header { margin-bottom: 36px; }
+    .form-header p { font-size: 12px; }
+
+    /* Progress bar - simplified on mobile */
+    .progress-bar { padding: 0; gap: 0; margin-bottom: 36px; }
+    .progress-label { display: none; }
+    .progress-dot { width: 22px; height: 22px; font-size: 9px; }
+    .progress-step::after { top: 11px; }
+
+    /* Options always single col on mobile */
+    .options-grid { grid-template-columns: 1fr !important; }
+    .option-label { padding: 16px 18px; font-size: 14px; min-height: 52px; }
+
+    /* Inputs touch-friendly */
+    .text-input { padding: 16px 18px; font-size: 16px !important; } /* 16px prevents iOS zoom */
+    select.text-input { font-size: 16px !important; }
+
+    /* City/state grid stacked on mobile */
+    #step4-location-grid { grid-template-columns: 1fr !important; }
+
+    /* Nav buttons */
+    .form-nav { flex-direction: column-reverse; gap: 12px; margin-top: 32px; padding-top: 24px; }
+    .btn-next { width: 100%; justify-content: center; padding: 18px 24px; font-size: 11px; }
+    .btn-back { justify-content: center; }
+
+    /* Alert box */
+    .alert-box { padding: 16px; }
+
+    /* Step count */
+    .step-count { margin-bottom: 24px; }
+
+    /* Field groups */
+    .field-group { margin-bottom: 24px; }
+
+    /* Success screen */
+    .success-screen { padding: 48px 16px; }
+  }
+
+  /* Very small screens */
+  @media (max-width: 360px) {
+    .hero { padding: 32px 16px; }
+    .form-section { padding: 24px 12px 80px; }
+  }
+
+  select.text-input option {
+    background: #1a1a1a;
+    color: var(--text);
+  }
+
+  @keyframes spin { to { transform: translateY(-50%) rotate(360deg); } }
+</style>
+</head>
+<body>
+
+<div class="screen" id="screen-home">
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-grid-lines"></div>
+  <div class="hero-content">
+
+
+    <p class="hero-pre" style="font-size:clamp(13px,2vw,16px);letter-spacing:0.35em;text-transform:uppercase;color:var(--gray-light);margin-bottom:16px;font-weight:400;animation:fadeDown 0.8s 0.05s ease both;">Faça parte da</p>
+    <div style="animation:fadeDown 0.8s 0.15s ease both;margin-bottom:32px;">
+      <img src="data:image/webp;base64,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" alt="Saint Germain" style="height:clamp(36px,10vw,72px);display:block;margin:0 auto;max-width:90%;">
+    </div>
+    <p class="hero-subtitle" style="animation:fadeDown 0.8s 0.25s ease both;">Programa de Revendedores</p>
+
+    <p class="hero-desc">
+      Junte-se à nossa rede de revendedores e ofereça ao seu cliente peças que combinam elegância, precisão e exclusividade.
+    </p>
+
+    <div class="hero-cta">
+      <a href="#" class="btn-primary" onclick="goToForm(event)">Quero ser revendedor</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2025 Saint Germain — Todos os direitos reservados</p>
+</footer>
+
+</div><!-- /screen-home -->
+
+<div class="screen" id="screen-form">
+
+<!-- FORM HEADER NAV -->
+<div style="position:sticky;top:0;z-index:50;background:rgba(10,10,10,0.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:14px 20px;display:flex;align-items:center;justify-content:space-between;">
+  <button onclick="goToHome()" style="background:none;border:none;color:var(--gray-light);font-family:'Barlow',sans-serif;font-size:10px;font-weight:500;letter-spacing:0.3em;text-transform:uppercase;cursor:pointer;display:flex;align-items:center;gap:8px;transition:color 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='var(--gray-light)'">
+    <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M13 8H3M7 4L3 8l4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    Voltar
+  </button>
+  <div style="display:flex;align-items:center;">
+    <img src="data:image/webp;base64,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" alt="Saint Germain" style="height:22px;opacity:0.7;">
+  </div>
+  <div style="width:80px;"></div>
+</div>
+
+<!-- FORM SECTION -->
+<section class="form-section" id="formulario">
+  <div class="form-container">
+
+    <div class="form-header">
+      <p class="form-eyebrow">Captação de Leads</p>
+      <h2>Preencha o<br>formulário</h2>
+      <p>Nossa equipe de vendas entrará em contato para apresentar as condições exclusivas do nosso programa de revendedores.</p>
+    </div>
+
+    <!-- PROGRESS -->
+    <div class="progress-bar" id="progressBar">
+      <div class="progress-step active" data-step="1">
+        <div class="progress-dot">1</div>
+        <span class="progress-label">CNPJ</span>
+      </div>
+      <div class="progress-step" data-step="2">
+        <div class="progress-dot">2</div>
+        <span class="progress-label">Negócio</span>
+      </div>
+      <div class="progress-step" data-step="3">
+        <div class="progress-dot">3</div>
+        <span class="progress-label">Perfil</span>
+      </div>
+      <div class="progress-step" data-step="4">
+        <div class="progress-dot">4</div>
+        <span class="progress-label">Pedido</span>
+      </div>
+    </div>
+
+    <div id="formWrapper">
+
+      <!-- STEP 1: CNPJ -->
+      <div class="form-step active" data-step="1">
+        <p class="step-count">ETAPA 01 — 04</p>
+
+        <div class="field-group">
+          <label class="field-label">Você possui CNPJ ativo? <span>*</span></label>
+          <div class="options-grid single-col">
+            <div class="option-item">
+              <input type="radio" name="tem_cnpj" id="cnpj_sim" value="Sim">
+              <label for="cnpj_sim" class="option-label">Sim</label>
+            </div>
+            <div class="option-item">
+              <input type="radio" name="tem_cnpj" id="cnpj_nao" value="Não">
+              <label for="cnpj_nao" class="option-label">Não</label>
+            </div>
+          </div>
+          <div class="field-error" id="err_cnpj">Por favor, selecione uma opção.</div>
+        </div>
+
+        <!-- Fluxo alternativo para quem não tem CNPJ -->
+        <div class="alert-box" id="alertNoCnpj">
+          <p style="margin-bottom:16px;"><strong>Sem CNPJ no momento?</strong><br>
+          Tudo bem! Deixa o seu WhatsApp que o nosso time entra em contato para te ajudar a dar o próximo passo.</p>
+          <div style="display:flex; flex-direction:column; gap:10px;">
+            <input type="text" class="text-input" id="nome_sem_cnpj" name="nome_sem_cnpj" placeholder="Seu nome" style="font-size:13px; padding:12px 16px;">
+            <input type="tel" class="text-input" id="whatsapp_sem_cnpj" name="whatsapp_sem_cnpj" placeholder="WhatsApp — (00) 00000-0000" style="font-size:13px; padding:12px 16px;">
+            <div class="field-error" id="err_whatsapp" style="margin-top:0;">Por favor, informe seu WhatsApp.</div>
+            <button class="btn-next" style="align-self:flex-end; margin-top:4px;" onclick="submitNoCnpj()">
+              <span>Enviar</span>
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <div id="cnpjFields" style="display:none;">
+          <div class="field-group">
+            <label class="field-label" for="num_cnpj">Qual o seu CNPJ? <span>*</span></label>
+            <div style="position:relative;">
+              <input type="text" class="text-input" id="num_cnpj" name="cnpj" placeholder="00.000.000/0001-00" maxlength="18" oninput="onCnpjInput(this.value)" style="padding-right:44px;">
+              <div id="cnpj-spinner" style="display:none;position:absolute;right:14px;top:50%;transform:translateY(-50%);width:18px;height:18px;border:2px solid rgba(255,255,255,0.15);border-top-color:rgba(255,255,255,0.6);border-radius:50%;animation:spin 0.7s linear infinite;"></div>
+              <div id="cnpj-ok" style="display:none;position:absolute;right:14px;top:50%;transform:translateY(-50%);color:#5dbf85;font-size:16px;">✓</div>
+              <div id="cnpj-err-icon" style="display:none;position:absolute;right:14px;top:50%;transform:translateY(-50%);color:#e06060;font-size:16px;">✗</div>
+            </div>
+            <div class="field-error" id="err_num_cnpj">Por favor, informe seu CNPJ.</div>
+            <!-- Resultado da consulta -->
+            <div id="cnpj-result" style="display:none;margin-top:12px;padding:14px 18px;border:1px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.03);">
+              <div style="font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:var(--gray-light);margin-bottom:6px;" id="cnpj-situacao-label"></div>
+              <div style="font-size:14px;color:var(--white);font-weight:400;" id="cnpj-razao"></div>
+              <div style="font-size:12px;color:var(--gray-light);margin-top:4px;" id="cnpj-fantasia"></div>
+            </div>
+            <div id="cnpj-inactive-msg" style="display:none;margin-top:12px;padding:14px 18px;border:1px solid rgba(224,96,96,0.25);background:rgba(224,96,96,0.04);">
+              <p style="font-size:13px;color:#e06060;line-height:1.6;">Este CNPJ está <strong>inativo ou inapto</strong> na Receita Federal. Para se tornar revendedor é necessário ter CNPJ ativo.</p>
+            </div>
+          </div>
+
+          <div class="field-group" id="nome-loja-group" style="display:none;">
+            <label class="field-label" for="nome_loja">Qual o nome da sua loja? <span>*</span></label>
+            <input type="text" class="text-input" id="nome_loja" name="nome_loja" placeholder="Nome da loja ou estabelecimento">
+            <div class="field-error" id="err_nome_loja">Por favor, informe o nome da sua loja.</div>
+          </div>
+        </div>
+
+        <div class="form-nav">
+          <div></div>
+          <button class="btn-next" onclick="nextStep(1)">
+            <span>Continuar</span>
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- STEP 2: TIPO DE NEGÓCIO -->
+      <div class="form-step" data-step="2">
+        <p class="step-count">ETAPA 02 — 04</p>
+
+        <div class="field-group">
+          <label class="field-label">Seu negócio é: <span>*</span>
+            <span style="font-size:9px;letter-spacing:0.15em;opacity:0.5;font-weight:400;text-transform:uppercase;margin-left:8px;">Pode marcar mais de um</span>
+          </label>
+          <div class="options-grid">
+            <div class="option-item">
+              <input type="checkbox" name="tipo_negocio" id="neg1" value="Loja física">
+              <label for="neg1" class="option-label checkbox-label">Loja física</label>
+            </div>
+            <div class="option-item">
+              <input type="checkbox" name="tipo_negocio" id="neg2" value="Loja física + Instagram">
+              <label for="neg2" class="option-label checkbox-label">Loja física + Instagram</label>
+            </div>
+            <div class="option-item">
+              <input type="checkbox" name="tipo_negocio" id="neg3" value="Apenas Instagram">
+              <label for="neg3" class="option-label checkbox-label">Apenas Instagram</label>
+            </div>
+            <div class="option-item">
+              <input type="checkbox" name="tipo_negocio" id="neg4" value="Loja Online">
+              <label for="neg4" class="option-label checkbox-label">Loja Online</label>
+            </div>
+            <div class="option-item">
+              <input type="checkbox" name="tipo_negocio" id="neg5" value="Venda em marketplace">
+              <label for="neg5" class="option-label checkbox-label">Venda em marketplace</label>
+            </div>
+            <div class="option-item">
+              <input type="checkbox" name="tipo_negocio" id="neg6" value="Outro" onchange="toggleOutroNegocio(this.checked)">
+              <label for="neg6" class="option-label checkbox-label">Outro</label>
+            </div>
+          </div>
+          <div id="outro-negocio-field" style="display:none;margin-top:10px;">
+            <input type="text" class="text-input" id="outro_negocio" name="outro_negocio" placeholder="Qual?" style="font-size:13px;">
+          </div>
+          <div class="field-error" id="err_tipo_negocio">Por favor, selecione ao menos uma opção.</div>
+        </div>
+
+        <div class="form-nav">
+          <button class="btn-back" onclick="prevStep(2)">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <path d="M13 8H3M7 4L3 8l4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            Voltar
+          </button>
+          <button class="btn-next" onclick="nextStep(2)">
+            <span>Continuar</span>
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- STEP 3: SEGMENTO + RELÓGIOS -->
+      <div class="form-step" data-step="3">
+        <p class="step-count">ETAPA 03 — 04</p>
+
+        <div class="field-group">
+          <label class="field-label">Qual o segmento da sua loja? <span>*</span></label>
+          <div class="options-grid">
+            <div class="option-item">
+              <input type="radio" name="segmento" id="seg1" value="Semi joias">
+              <label for="seg1" class="option-label">Semi joias</label>
+            </div>
+            <div class="option-item">
+              <input type="radio" name="segmento" id="seg2" value="Acessórios femininos">
+              <label for="seg2" class="option-label">Acessórios femininos</label>
+            </div>
+            <div class="option-item">
+              <input type="radio" name="segmento" id="seg3" value="Moda feminina">
+              <label for="seg3" class="option-label">Moda feminina</label>
+            </div>
+            <div class="option-item">
+              <input type="radio" name="segmento" id="seg4" value="Moda masculina">
+              <label for="seg4" class="option-label">Moda masculina</label>
+            </div>
+            <div class="option-item">
+              <input type="radio" name="segmento" id="seg5" value="Multimarcas">
+              <label for="seg5" class="option-label">Multimarcas</label>
+            </div>
+            <div class="option-item">
+              <input type="radio" name="segmento" id="seg6" value="Outro" onchange="toggleOutroSegmento(this.checked)">
+              <label for="seg6" class="option-label">Outro</label>
+            </div>
+          </div>
+          <div id="outro-segmento-field" style="display:none;margin-top:10px;">
+            <input type="text" class="text-input" id="outro_segmento" name="outro_segmento" placeholder="Qual?" style="font-size:13px;">
+          </div>
+          <div class="field-error" id="err_segmento">Por favor, selecione o segmento da sua loja.</div>
+        </div>
+
+        <div class="ornament">
+          <div class="ornament-line"></div>
+          <div class="ornament-diamond"></div>
+          <div class="ornament-line right"></div>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label">Você já vende relógios? <span>*</span></label>
+          <div class="options-grid single-col">
+            <div class="option-item">
+              <input type="radio" name="vende_relogios" id="rel_sim" value="Sim">
+              <label for="rel_sim" class="option-label">Sim</label>
+            </div>
+            <div class="option-item">
+              <input type="radio" name="vende_relogios" id="rel_nao" value="Não, quero começar agora">
+              <label for="rel_nao" class="option-label">Não, quero começar agora</label>
+            </div>
+          </div>
+          <div class="field-error" id="err_relogios">Por favor, selecione uma opção.</div>
+        </div>
+
+        <div class="form-nav">
+          <button class="btn-back" onclick="prevStep(3)">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <path d="M13 8H3M7 4L3 8l4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            Voltar
+          </button>
+          <button class="btn-next" onclick="nextStep(3)">
+            <span>Continuar</span>
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- STEP 4: PEDIDO + CIDADE -->
+      <div class="form-step" data-step="4">
+        <p class="step-count">ETAPA 04 — 04</p>
+
+        <div class="field-group">
+          <label class="field-label">Você consegue fazer um pedido inicial mínimo de R$1.500? <span>*</span></label>
+          <div class="options-grid single-col">
+            <div class="option-item">
+              <input type="radio" name="pedido_minimo" id="ped_sim" value="Sim">
+              <label for="ped_sim" class="option-label">Sim</label>
+            </div>
+            <div class="option-item">
+              <input type="radio" name="pedido_minimo" id="ped_nao" value="Não">
+              <label for="ped_nao" class="option-label">Não</label>
+            </div>
+          </div>
+          <div class="field-error" id="err_pedido">Por favor, selecione uma opção.</div>
+        </div>
+
+        <div class="ornament">
+          <div class="ornament-line"></div>
+          <div class="ornament-diamond"></div>
+          <div class="ornament-line right"></div>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label">Qual a sua cidade e estado? <span>*</span></label>
+          <div id="step4-location-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+
+            <!-- Estado -->
+            <div style="position:relative;">
+              <select class="text-input" id="select_estado" name="estado" style="appearance:none;-webkit-appearance:none;cursor:pointer;padding-right:36px;">
+                <option value="">Estado</option>
+                <option value="AC">Acre – AC</option>
+                <option value="AL">Alagoas – AL</option>
+                <option value="AP">Amapá – AP</option>
+                <option value="AM">Amazonas – AM</option>
+                <option value="BA">Bahia – BA</option>
+                <option value="CE">Ceará – CE</option>
+                <option value="DF">Distrito Federal – DF</option>
+                <option value="ES">Espírito Santo – ES</option>
+                <option value="GO">Goiás – GO</option>
+                <option value="MA">Maranhão – MA</option>
+                <option value="MT">Mato Grosso – MT</option>
+                <option value="MS">Mato Grosso do Sul – MS</option>
+                <option value="MG">Minas Gerais – MG</option>
+                <option value="PA">Pará – PA</option>
+                <option value="PB">Paraíba – PB</option>
+                <option value="PR">Paraná – PR</option>
+                <option value="PE">Pernambuco – PE</option>
+                <option value="PI">Piauí – PI</option>
+                <option value="RJ">Rio de Janeiro – RJ</option>
+                <option value="RN">Rio Grande do Norte – RN</option>
+                <option value="RS">Rio Grande do Sul – RS</option>
+                <option value="RO">Rondônia – RO</option>
+                <option value="RR">Roraima – RR</option>
+                <option value="SC">Santa Catarina – SC</option>
+                <option value="SP">São Paulo – SP</option>
+                <option value="SE">Sergipe – SE</option>
+                <option value="TO">Tocantins – TO</option>
+              </select>
+              <svg style="position:absolute;right:12px;top:50%;transform:translateY(-50%);pointer-events:none;" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+
+            <!-- Cidade -->
+            <input type="text" class="text-input" id="input_cidade" name="cidade" placeholder="Cidade" autocomplete="off">
+
+          </div>
+          <input type="hidden" id="cidade_estado" name="cidade_estado">
+          <div class="field-error" id="err_cidade">Por favor, informe sua cidade e selecione o estado.</div>
+        </div>
+
+        <div class="form-nav">
+          <button class="btn-back" onclick="prevStep(4)">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <path d="M13 8H3M7 4L3 8l4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            Voltar
+          </button>
+          <button class="btn-next" onclick="submitForm()">
+            <span>Enviar</span>
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+    </div><!-- /formWrapper -->
+
+    <!-- SUCCESS -->
+    <div class="success-screen" id="successScreen">
+      <div class="success-icon">
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+          <path d="M6 16l7 7L26 9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <h2>Formulário<br><em>enviado!</em></h2>
+      <div class="ornament" style="max-width:200px; margin:24px auto;">
+        <div class="ornament-line"></div>
+        <div class="ornament-diamond"></div>
+        <div class="ornament-line right"></div>
+      </div>
+      <p>Obrigado pelo interesse em se tornar um revendedor Saint Germain. Nossa equipe de vendas entrará em contato em breve para apresentar todas as condições e exclusividades do nosso programa.</p>
+    </div>
+
+  </div>
+</section>
+
+<footer style="border-top:1px solid var(--gray);padding:24px 24px calc(24px + env(safe-area-inset-bottom));text-align:center;">
+  <p style="font-size:11px;color:var(--text-muted);letter-spacing:0.15em;">© 2025 Saint Germain — Todos os direitos reservados</p>
+</footer>
+
+</div><!-- /screen-form -->
+
+<script>
+  let currentStep = 1;
+  const totalSteps = 4;
+
+  function goToForm(e) {
+    e.preventDefault();
+    document.getElementById('screen-home').classList.add('hidden');
+    document.getElementById('screen-form').classList.add('visible');
+  }
+
+  function goToHome() {
+    document.getElementById('screen-form').classList.remove('visible');
+    document.getElementById('screen-home').classList.remove('hidden');
+    document.getElementById('screen-form').scrollTop = 0;
+  }
+
+  // Estado da validação do CNPJ
+  let cnpjValido = false;
+  let cnpjTimer = null;
+
+  // Formata CNPJ enquanto digita
+  function onCnpjInput(val) {
+    let v = val.replace(/\D/g, '');
+    if (v.length > 14) v = v.slice(0, 14);
+    v = v.replace(/^(\d{2})(\d)/, '$1.$2');
+    v = v.replace(/^(\d{2})\.(\d{3})(\d)/, '$1.$2.$3');
+    v = v.replace(/\.(\d{3})(\d)/, '.$1/$2');
+    v = v.replace(/(\d{4})(\d)/, '$1-$2');
+    document.getElementById('num_cnpj').value = v;
+
+    // Limpa resultado anterior
+    setCnpjState('idle');
+    clearTimeout(cnpjTimer);
+
+    const digits = v.replace(/\D/g, '');
+    if (digits.length === 14) {
+      cnpjTimer = setTimeout(() => consultarCnpj(digits), 600);
+    }
+  }
+
+  // CNPJ mask fallback (listener para compatibilidade)
+  document.getElementById('num_cnpj').addEventListener('input', function(e) {});
+
+  function setCnpjState(state, data) {
+    const spinner = document.getElementById('cnpj-spinner');
+    const ok      = document.getElementById('cnpj-ok');
+    const err     = document.getElementById('cnpj-err-icon');
+    const result  = document.getElementById('cnpj-result');
+    const inactive= document.getElementById('cnpj-inactive-msg');
+    const nolojaGroup = document.getElementById('nome-loja-group');
+
+    spinner.style.display  = 'none';
+    ok.style.display       = 'none';
+    err.style.display      = 'none';
+    result.style.display   = 'none';
+    inactive.style.display = 'none';
+    cnpjValido = false;
+
+    if (state === 'loading') {
+      spinner.style.display = 'block';
+    } else if (state === 'ativo') {
+      ok.style.display = 'block';
+      result.style.display = 'block';
+      document.getElementById('cnpj-situacao-label').textContent = '✓ CNPJ ativo';
+      document.getElementById('cnpj-situacao-label').style.color = '#5dbf85';
+      document.getElementById('cnpj-razao').textContent = data.razao || '';
+      document.getElementById('cnpj-fantasia').textContent = data.fantasia ? `Nome fantasia: ${data.fantasia}` : '';
+      nolojaGroup.style.display = 'block';
+      cnpjValido = true;
+    } else if (state === 'inativo') {
+      err.style.display = 'block';
+      inactive.style.display = 'block';
+      nolojaGroup.style.display = 'none';
+    } else if (state === 'erro') {
+      nolojaGroup.style.display = 'block';
+      cnpjValido = true; // Permite avançar mesmo com erro na API
+    } else {
+      nolojaGroup.style.display = 'none';
+    }
+  }
+
+  async function consultarCnpj(digits) {
+    setCnpjState('loading');
+    try {
+      const res = await fetch(`https://publica.cnpj.ws/cnpj/${digits}`);
+      if (!res.ok) throw new Error('not found');
+      const data = await res.json();
+      const situacao = (data.estabelecimento?.situacao_cadastral || '').toUpperCase();
+      if (situacao === 'ATIVO') {
+        setCnpjState('ativo', {
+          razao: data.razao_social || '',
+          fantasia: data.estabelecimento?.nome_fantasia || ''
+        });
+      } else {
+        setCnpjState('inativo');
+      }
+    } catch(e) {
+      // Fallback: API indisponível, permite continuar
+      setCnpjState('erro');
+    }
+  }
+
+  function toggleOutroNegocio(checked) {
+    document.getElementById('outro-negocio-field').style.display = checked ? 'block' : 'none';
+    if (!checked) document.getElementById('outro_negocio').value = '';
+  }
+
+  function toggleOutroSegmento(checked) {
+    document.getElementById('outro-segmento-field').style.display = checked ? 'block' : 'none';
+    if (!checked) document.getElementById('outro_segmento').value = '';
+  }
+
+  // Atualiza outros segmentos ao mudar radio
+  document.querySelectorAll('input[name="segmento"]').forEach(r => {
+    r.addEventListener('change', function() {
+      if (this.value !== 'Outro') toggleOutroSegmento(false);
+    });
+  });
+
+
+  document.querySelectorAll('input[name="tem_cnpj"]').forEach(r => {
+    r.addEventListener('change', function() {
+      const hasCnpj = this.value === 'Sim';
+      document.getElementById('cnpjFields').style.display = hasCnpj ? 'block' : 'none';
+      const alert = document.getElementById('alertNoCnpj');
+      if (hasCnpj) {
+        alert.classList.remove('visible');
+      } else {
+        alert.classList.add('visible');
+      }
+    });
+  });
+
+  // Update progress bar
+  function updateProgress(step) {
+    document.querySelectorAll('.progress-step').forEach(el => {
+      const s = parseInt(el.dataset.step);
+      el.classList.remove('active', 'done');
+      if (s < step) el.classList.add('done');
+      else if (s === step) el.classList.add('active');
+    });
+  }
+
+  // Show step
+  function showStep(step) {
+    document.querySelectorAll('.form-step').forEach(el => el.classList.remove('active'));
+    const target = document.querySelector(`.form-step[data-step="${step}"]`);
+    if (target) target.classList.add('active');
+    updateProgress(step);
+    currentStep = step;
+  }
+
+  // Validation per step
+  function validateStep(step) {
+    let valid = true;
+
+    if (step === 1) {
+      const cnpj = document.querySelector('input[name="tem_cnpj"]:checked');
+      const errCnpj = document.getElementById('err_cnpj');
+      if (!cnpj) {
+        errCnpj.classList.add('visible'); valid = false;
+      } else {
+        errCnpj.classList.remove('visible');
+        if (cnpj.value === 'Sim') {
+          const num = document.getElementById('num_cnpj').value.replace(/\D/g,'');
+          const loja = document.getElementById('nome_loja').value.trim();
+          if (!num || num.length < 14 || !cnpjValido) {
+            document.getElementById('err_num_cnpj').classList.add('visible');
+            document.getElementById('err_num_cnpj').textContent = num.length < 14 ? 'Por favor, informe seu CNPJ completo.' : 'Aguarde a validação do CNPJ ou verifique o número.';
+            valid = false;
+          } else {
+            document.getElementById('err_num_cnpj').classList.remove('visible');
+          }
+          if (!loja) {
+            document.getElementById('err_nome_loja').classList.add('visible'); valid = false;
+          } else {
+            document.getElementById('err_nome_loja').classList.remove('visible');
+          }
+        }
+      }
+    }
+
+    if (step === 2) {
+      const checked = document.querySelectorAll('input[name="tipo_negocio"]:checked');
+      const err = document.getElementById('err_tipo_negocio');
+      if (checked.length === 0) { err.classList.add('visible'); valid = false; }
+      else {
+        err.classList.remove('visible');
+        const outroChecked = document.getElementById('neg6').checked;
+        if (outroChecked && !document.getElementById('outro_negocio').value.trim()) {
+          err.textContent = 'Por favor, descreva o tipo do seu negócio.';
+          err.classList.add('visible'); valid = false;
+        } else {
+          err.textContent = 'Por favor, selecione ao menos uma opção.';
+        }
+      }
+    }
+
+    if (step === 3) {
+      const seg = document.querySelector('input[name="segmento"]:checked');
+      const rel = document.querySelector('input[name="vende_relogios"]:checked');
+      if (!seg) { document.getElementById('err_segmento').classList.add('visible'); valid = false; }
+      else {
+        if (seg.value === 'Outro' && !document.getElementById('outro_segmento').value.trim()) {
+          document.getElementById('err_segmento').textContent = 'Por favor, descreva o segmento da sua loja.';
+          document.getElementById('err_segmento').classList.add('visible'); valid = false;
+        } else {
+          document.getElementById('err_segmento').textContent = 'Por favor, selecione o segmento da sua loja.';
+          document.getElementById('err_segmento').classList.remove('visible');
+        }
+      }
+      if (!rel) { document.getElementById('err_relogios').classList.add('visible'); valid = false; }
+      else document.getElementById('err_relogios').classList.remove('visible');
+    }
+
+    if (step === 4) {
+      const ped = document.querySelector('input[name="pedido_minimo"]:checked');
+      const estado = document.getElementById('select_estado').value.trim();
+      const cidade = document.getElementById('input_cidade').value.trim();
+      if (!ped) { document.getElementById('err_pedido').classList.add('visible'); valid = false; }
+      else document.getElementById('err_pedido').classList.remove('visible');
+      if (!estado || !cidade) {
+        document.getElementById('err_cidade').classList.add('visible'); valid = false;
+      } else {
+        document.getElementById('err_cidade').classList.remove('visible');
+        document.getElementById('cidade_estado').value = `${cidade} – ${estado}`;
+      }
+    }
+
+    return valid;
+  }
+
+  function nextStep(from) {
+    if (!validateStep(from)) return;
+    // Se não tem CNPJ, bloquear no passo 1
+    const cnpj = document.querySelector('input[name="tem_cnpj"]:checked');
+    if (from === 1 && cnpj && cnpj.value === 'Não') {
+      // Já mostra o alerta, não avança
+      return;
+    }
+    if (from < totalSteps) showStep(from + 1);
+  }
+
+  function prevStep(from) {
+    if (from > 1) showStep(from - 1);
+  }
+
+  function submitForm() {
+    if (!validateStep(4)) return;
+
+    // Coleta dados
+    const tiposChecked = [...document.querySelectorAll('input[name="tipo_negocio"]:checked')].map(el => el.value);
+    if (tiposChecked.includes('Outro')) {
+      const idx = tiposChecked.indexOf('Outro');
+      tiposChecked[idx] = 'Outro: ' + (document.getElementById('outro_negocio').value.trim() || 'Outro');
+    }
+    const segmento = document.querySelector('input[name="segmento"]:checked');
+    const segValue = segmento?.value === 'Outro'
+      ? 'Outro: ' + (document.getElementById('outro_segmento').value.trim() || 'Outro')
+      : segmento?.value;
+
+    const formData = {
+      tem_cnpj: document.querySelector('input[name="tem_cnpj"]:checked')?.value,
+      cnpj: document.getElementById('num_cnpj').value,
+      nome_loja: document.getElementById('nome_loja').value,
+      tipo_negocio: tiposChecked.join(', '),
+      segmento: segValue,
+      vende_relogios: document.querySelector('input[name="vende_relogios"]:checked')?.value,
+      pedido_minimo: document.querySelector('input[name="pedido_minimo"]:checked')?.value,
+      cidade_estado: document.getElementById('cidade_estado').value,
+    };
+
+    console.log('Form data:', formData);
+
+    // Esconde formulário e mostra sucesso
+    document.getElementById('progressBar').style.display = 'none';
+    document.getElementById('formWrapper').style.display = 'none';
+    document.querySelector('.form-header').style.display = 'none';
+    document.getElementById('successScreen').classList.add('visible');
+  }
+
+  // Máscara WhatsApp
+  document.getElementById('whatsapp_sem_cnpj').addEventListener('input', function(e) {
+    let v = e.target.value.replace(/\D/g, '');
+    if (v.length > 11) v = v.slice(0, 11);
+    if (v.length > 6) v = `(${v.slice(0,2)}) ${v.slice(2,7)}-${v.slice(7)}`;
+    else if (v.length > 2) v = `(${v.slice(0,2)}) ${v.slice(2)}`;
+    else if (v.length > 0) v = `(${v}`;
+    e.target.value = v;
+  });
+
+  function submitNoCnpj() {
+    const wpp = document.getElementById('whatsapp_sem_cnpj').value.trim();
+    const nome = document.getElementById('nome_sem_cnpj').value.trim();
+    const err = document.getElementById('err_whatsapp');
+    if (!wpp) { err.classList.add('visible'); return; }
+    err.classList.remove('visible');
+
+    const formData = { fluxo: 'sem_cnpj', nome, whatsapp: wpp };
+    console.log('Lead sem CNPJ:', formData);
+
+    // Esconde tudo e mostra tela de sucesso
+    document.getElementById('progressBar').style.display = 'none';
+    document.getElementById('formWrapper').style.display = 'none';
+    document.querySelector('.form-header').style.display = 'none';
+    document.getElementById('successScreen').classList.add('visible');
+  }
+  // ── Cidade / Estado ──────────────────────────────────────────
+  // Estado: select nativo | Cidade: input de texto livre
+</script>
+</body>
+</html>
